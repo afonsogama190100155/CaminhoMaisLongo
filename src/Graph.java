@@ -1,11 +1,16 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Estrutura de dados contendo o grafo
+ * em forma de uma lista de adjacencia(parecido com a matriz de adjacencia
+ * mas ocupa menos espaço)
+ */
 public class Graph {
-    private final int size;
-    private List<List<Node>> adjacencyList; 
-    private Node start;
-    private Node finish;
+    private final int size; //Tamanho da grid
+    private List<List<Node>> adjacencyList; //Estrutura de dados
+    private Node start; //Node inicial
+    private Node finish; //Node final
 
     public Graph(char[][] grid) { 
         adjacencyList = new ArrayList<>();
@@ -15,6 +20,10 @@ public class Graph {
 
     }
 
+    /**
+     * Adiciona a  lista de adjacencia os vizinhos de cada Node
+     * @param grid char grid
+     */
     private void addNeighboursToAdjacencyList(char[][] grid) {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
@@ -28,6 +37,10 @@ public class Graph {
     }
 
 
+    /**
+     * Adiciona a lista de adjacencia as nodes
+     * @param grid char grid
+     */
     private void addNodesToAdjacencyList(char[][] grid) {
         int num_starts = 0;
         int num_finishes = 0;
@@ -49,10 +62,13 @@ public class Graph {
                 adjacencyList.add(list);
             }
         }
-        if (num_starts != 1) throw new IllegalArgumentException("Grelha invalida, tem de ter um inicio ");
-        if (num_finishes != 1) throw new IllegalArgumentException("Grelha invalida, tem de ter um final");
+        if (num_starts != 1) throw new IllegalArgumentException("Grelha invalida, tem de ter um inicio");
+        if (num_finishes != 1) throw new IllegalArgumentException("Grelha invalida, tem de ter um fim");
     }
 
+    /**
+     * @return nodes da lista de adjacencia
+     */
     public List<Node> getNodes() {
         List<Node> nodes = new ArrayList<>();
         for (List<Node> list : adjacencyList) {
@@ -61,6 +77,11 @@ public class Graph {
         return nodes;
     }
 
+    /**
+     * Produz uma lista de vizinhos de um certo ponto em forma de lista de Points
+     * @param x coordenada x
+     * @param y coordenada y
+     */
     private List<Point> getNeighbours(int x, int y) {
         List<Point> neighbours = new ArrayList<>();
         for (int i = -1; i < 2; i++) {
@@ -72,12 +93,17 @@ public class Graph {
                 int neighbourY = y + j;
 
                 if (isValid(new Node(neighbourX, neighbourY)))
-                    neighbours.add(new Point(neighbourX, neighbourY));
+                    neighbours.add(new Node(neighbourX, neighbourY));
             }
         }
         return neighbours;
     }
 
+    /**
+     * Produz uma lista de vizinhos de um certo node em forma de lista de nodes
+     * @param node Node
+     * @return lista de nodes
+     */
     public List<Node> getNeighbours(Node node) {
         List<Node> neighbours = new ArrayList<>();
         for (List<Node> list : adjacencyList) {
@@ -92,15 +118,24 @@ public class Graph {
         return null;
     }
 
+    /**
+     * Verifica se Node é valido (esta dentro da grid)
+     */
     public boolean isValid(Node node) { 
         return node.getX() >= 0 && node.getX() < size && node.getY() >= 0 && node.getY() < size;
     }
 
+    /**
+     * Retorna a node na posição x e y
+     */
     private Node getNode(int x, int y) {
         int index = y * size + x;
         return adjacencyList.get(index).get(0);
     }
 
+    /**
+     * Retorna a node e os seus vizinhos na posição x e  y
+     */
     private List<Node> getNodeList(int x, int y) {
         int index = y*size+x;
         return adjacencyList.get(index);

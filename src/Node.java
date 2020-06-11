@@ -1,9 +1,15 @@
-public class Node extends Point{
+/**
+ * Implementanção da interface Node,
+ * serve como foundation para o algoritmo
+ */
+public class Node implements Point {
+    private int x, y;
     private Node parent;
-    private float distance;
+    private float distance; //dist
 
-    public Node(int x,int y){
-        super(x,y);
+    public Node(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     public Node getParent() {
@@ -20,5 +26,21 @@ public class Node extends Point{
 
     public void setDistance(float distance) {
         this.distance = distance;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
     }
 }
