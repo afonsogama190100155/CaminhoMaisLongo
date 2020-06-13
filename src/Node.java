@@ -1,11 +1,11 @@
 /**
- * Implementanção da interface Node,
+ * Implementação da interface Node,
  * serve como foundation para o algoritmo
  */
 public class Node implements Point {
     private int x, y;
     private Node parent;
-    private float distance; //dist
+    private float distance; 
 
     public Node(int x, int y) {
         this.x = x;
